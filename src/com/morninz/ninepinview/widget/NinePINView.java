@@ -74,16 +74,16 @@ public class NinePINView extends View {
 	protected final int DEFAULT_LINE_COLOR = 0x77FFFFFF;
 	protected final int DEFAULT_WRONG_COLOR = 0xFFFF0000;
 	private int mPointColor;
-	private int mPointSize;
+	private float mPointSize;
 	private Paint mPointPaint;
 
 	private int mCircleColor;
-	private int mCircleWidth;
-	private int mCircleRadius;
+	private float mCircleWidth;
+	private float mCircleRadius;
 	private Paint mCirclePaint;
 
 	private int mLineColor;
-	private int mLineWidth;
+	private float mLineWidth;
 	private Paint mLinePaint;
 
 	private int mWrongColor;
@@ -117,8 +117,8 @@ public class NinePINView extends View {
 
 	private class Point {
 		int index;// index of 9 center points
-		int x;
-		int y;
+		float x;
+		float y;
 
 		@Override
 		public String toString() {
@@ -176,14 +176,12 @@ public class NinePINView extends View {
 		mWrongColor = a.getColor(R.styleable.NinePINView_wrongColor,
 				DEFAULT_WRONG_COLOR);
 
-		mPointSize = a.getDimensionPixelSize(R.styleable.NinePINView_pointSize,
-				8);
-		mCircleWidth = a.getDimensionPixelSize(
-				R.styleable.NinePINView_circleWidth, 5);
-		mLineWidth = a.getDimensionPixelSize(R.styleable.NinePINView_lineWidth,
-				5);
-		mCircleRadius = a.getDimensionPixelSize(
-				R.styleable.NinePINView_circleRadius, 40);
+		mPointSize = a.getDimension(R.styleable.NinePINView_pointSize, 8.0f);
+		mCircleWidth = a
+				.getDimension(R.styleable.NinePINView_circleWidth, 5.0f);
+		mLineWidth = a.getDimension(R.styleable.NinePINView_lineWidth, 5.0f);
+		mCircleRadius = a.getDimension(R.styleable.NinePINView_circleRadius,
+				40.0f);
 
 		a.recycle();
 
@@ -297,9 +295,15 @@ public class NinePINView extends View {
 	 *            <b>eg:</b> "012" PIN String represent that the shape connect
 	 *            one, two and three points in first row.
 	 * @throws IllegalArgumentException
+	 *             if parameter <b>pin</b> contains characters besides '0'-'8'
+	 *             or same charaters.
 	 */
-	public void setCorrectPIN(String pin) throws IllegalArgumentException {
-		Pattern.matches("[0-8]{1,9}", "");
+	public void setCorrectPIN(String pin) {
+		boolean match = Pattern.matches("[0-8]{1,9}", pin);
+		if (!match) {
+			throw new IllegalArgumentException(
+					"The pin must only contains characters '0'-'8' and not be repeat.");
+		}
 		mCorrectPIN = pin;
 	}
 
@@ -318,14 +322,13 @@ public class NinePINView extends View {
 	protected void computePointsAndWrongTriangleCoordinate() {
 		int drawWidth = getWidth() - getPaddingLeft() - getPaddingRight();
 		int drawHeight = getHeight() - getPaddingTop() - getPaddingBottom();
-		Log.d(TAG, "darwWidth = " + drawWidth + ", drawHeight = " + drawHeight);
 
-		int baseX = getPaddingLeft() + mCircleRadius;
-		int baseY = getPaddingTop() + mCircleRadius;
-		int gapX = drawWidth / 2 - mCircleRadius;
-		int gapY = drawHeight / 2 - mCircleRadius;
+		float baseX = getPaddingLeft() + mCircleRadius;
+		float baseY = getPaddingTop() + mCircleRadius;
+		float gapX = drawWidth / 2.0f - mCircleRadius;
+		float gapY = drawHeight / 2.0f - mCircleRadius;
 
-		int r = mCircleRadius;
+		float r = mCircleRadius;
 
 		for (int i = 0; i < POINT_COUNT; i++) {
 			// compute center point's coordinate
@@ -334,7 +337,6 @@ public class NinePINView extends View {
 			point.y = baseY + gapY * (i / 3);
 			point.index = i;
 			mCenterPoints[i] = point;
-			Log.d(TAG, point.toString());
 			// compute wrong triangle path of this point.
 			Path path = new Path();
 			float x1, y1, x2, y2, x3, y3;
@@ -470,7 +472,7 @@ public class NinePINView extends View {
 			mOnDrawListener.onDrawStart(this);
 		} else {
 			Log.w(TAG,
-					"You should call NinePINView.setOnDrawCompleteListener() method to set a listener that listen drawn action complete.");
+					"You should call NinePINView.setOnDrawCompleteListener() method to set a draw listener.");
 		}
 	}
 
@@ -484,7 +486,7 @@ public class NinePINView extends View {
 			mOnDrawListener.onDrawComplete(this, correct);
 		} else {
 			Log.w(TAG,
-					"You should call NinePINView.setOnDrawCompleteListener() method to set a listener that listen drawn action complete.");
+					"You should call NinePINView.setOnDrawCompleteListener() method to set a draw listener.");
 		}
 	}
 
