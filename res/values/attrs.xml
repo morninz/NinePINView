@@ -10,13 +10,13 @@
         <attr name="lineWidth" format="dimension" />
         <!-- Define the width of circle around point that finger has gone across. -->
         <attr name="circleWidth" format="dimension" />
-        <!-- 定义圆环的颜色 -->
+        <!-- Define color of nine circles -->
         <attr name="circleColor" format="color" />
-        <!-- 定义9个点的颜色 -->
+        <!-- Define color of nine points -->
         <attr name="pointColor" format="color" />
-        <!-- 定义连接线的颜色 -->
+        <!-- Define color of the connection line-->
         <attr name="lineColor" format="color" />
-        <!-- 定义错误路径的颜色 -->
+        <!-- Define color of the wrong path -->
         <attr name="wrongColor" format="color" />
     </declare-styleable>
 

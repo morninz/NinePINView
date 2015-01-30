@@ -1,3 +1,26 @@
+/**
+ * The MIT License (MIT)
+ * 
+ * Copyright (c) 2015 Mornin.Z
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.morninz.ninepinview.widget;
 
 import java.util.ArrayList;
@@ -47,7 +70,7 @@ public class NinePINView extends View {
 	protected final int POINT_COUNT = 9;
 	protected final int DEFAULT_PADDING = 20;
 	protected final int DEFAULT_POINT_COLOR = 0xFFFFFFFF;
-	protected final int DEFAULT_CIRCLE_COLOR = 0xFF006633;
+	protected final int DEFAULT_CIRCLE_COLOR = 0xFF66CC99;
 	protected final int DEFAULT_LINE_COLOR = 0x77FFFFFF;
 	protected final int DEFAULT_WRONG_COLOR = 0xFFFF0000;
 	private int mPointColor;
@@ -468,13 +491,8 @@ public class NinePINView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		// draw 9 center points
-		for (int i = 0; i < POINT_COUNT; i++) {
-			Point p = mCenterPoints[i];
-			canvas.drawCircle(p.x, p.y, mPointSize, mPointPaint);
-		}
 
-		// draw circles around center points
+		// draw circles around center points and connection line
 		int drawnCount = mDrawnPoints.size();
 		for (int j = 0; j < drawnCount; j++) {
 			Point p1 = mDrawnPoints.get(j);
@@ -509,10 +527,16 @@ public class NinePINView extends View {
 			}
 		}
 
-		// draw connection line
+		// draw extra connection line
 		if (mLastDrawnPoint != null) {
 			canvas.drawLine(mLastDrawnPoint.x, mLastDrawnPoint.y, mCurrX,
 					mCurrY, mLinePaint);
+		}
+
+		// draw 9 center points
+		for (int i = 0; i < POINT_COUNT; i++) {
+			Point p = mCenterPoints[i];
+			canvas.drawCircle(p.x, p.y, mPointSize, mPointPaint);
 		}
 	}
 

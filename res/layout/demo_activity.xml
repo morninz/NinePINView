@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff" >
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Draw a graphic as PIN"
+        android:textColor="#000000" />
+
+    <com.morninz.ninepinview.widget.NinePINView
+        xmlns:nine="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/nine_pin_view"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/result"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="#FF99CC"
+        nine:circleRadius="30dp"
+        nine:circleWidth="4dp"
+        nine:lineWidth="4dp"
+        nine:pointColor="#FFFFFF"
+        nine:pointSize="6dp" />
+
+</RelativeLayout>
