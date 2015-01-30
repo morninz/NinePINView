@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="NinePINView">
+        <!-- Define the size of 9 center points. -->
+        <attr name="pointSize" format="dimension" />
+        <!-- Define the radius of circle around point that finger has gone across. -->
+        <attr name="circleRadius" format="dimension" />
+        <!-- Define the width of line which connect the points that finger has gone across. -->
+        <attr name="lineWidth" format="dimension" />
+        <!-- Define the width of circle around point that finger has gone across. -->
+        <attr name="circleWidth" format="dimension" />
+        <!-- 定义圆环的颜色 -->
+        <attr name="circleColor" format="color" />
+        <!-- 定义9个点的颜色 -->
+        <attr name="pointColor" format="color" />
+        <!-- 定义连接线的颜色 -->
+        <attr name="lineColor" format="color" />
+        <!-- 定义错误路径的颜色 -->
+        <attr name="wrongColor" format="color" />
+    </declare-styleable>
+
+</resources>
