@@ -299,8 +299,17 @@ public class NinePINView extends View {
 	 *             or same charaters.
 	 */
 	public void setCorrectPIN(String pin) {
+		boolean repeat = false;
+		for (int i = 0; i < pin.length() - 1; i++) {
+			for (int j = i + 1; j < pin.length(); j++) {
+				if (pin.charAt(i) == pin.charAt(j)) {
+					repeat = true;
+					break;
+				}
+			}
+		}
 		boolean match = Pattern.matches("[0-8]{1,9}", pin);
-		if (!match) {
+		if (repeat || !match) {
 			throw new IllegalArgumentException(
 					"The pin must only contains characters '0'-'8' and not be repeat.");
 		}
